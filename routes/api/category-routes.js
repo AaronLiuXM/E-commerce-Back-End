@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
   Category.findAll({
     include: {
       model: Product,
-      attributes: ["id", "product", "price", "stock", "category_id"],
+      attributes: ["id", "product_name", "price", "stock", "category_id"],
     },
   })
     .then((dbData) => {
@@ -32,7 +32,7 @@ router.get("/:id", (req, res) => {
     where: { id: req.params.id },
     include: {
       model: Product,
-      attributes: ["id", "product", "price", "stock", "category_id"],
+      attributes: ["id", "product_name", "price", "stock", "category_id"],
     },
   })
     .then((dbData) => {
@@ -72,6 +72,7 @@ router.put("/:id", (req, res) => {
         res.status(404).json({ message: "invalid category ID" });
         return;
       }
+      res.json(dbData);
     })
     .catch((err) => {
       console.log(err);
